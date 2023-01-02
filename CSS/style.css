@@ -4,12 +4,22 @@
   box-sizing: border-box;
 }
 
+:root {
+  --workout-bg-color: #323232
+}
+
 .container {
   display: flex;
   max-width: 95vw;
   width: 100vw;
   height: 97vh;
   max-height: 97vh;
-  background-color: rgb(72, 72, 72);
+  background-color: rgb(222, 222, 222);
   margin: 10px auto;
+}
+
+.container__workout {
+  display: flex;
+  width: 25vw;
+  background-color: var(--workout-bg-color);
 }
