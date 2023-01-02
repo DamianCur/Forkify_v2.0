@@ -1,3 +1,6 @@
+/* font-family: 'Lato', sans-serif; */
+
+
 * {
   margin: 0;
   padding: 0;
@@ -20,6 +23,24 @@
 
 .container__workout {
   display: flex;
-  width: 25vw;
+  width: 30vw;
   background-color: var(--workout-bg-color);
+  justify-content: center;
+}
+
+.container__workout__header__wrapper {
+  display: flex;
+  align-items: center;
+  height: 20vh;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.container__workout__ico {
+  height: 8vh;
+}
+
+.container__workout__header {
+  font-family: 'Lato', sans-serif;
+  color: white;
 }
