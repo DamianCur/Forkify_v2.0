@@ -7,3 +7,20 @@ L.tileLayer(
       '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
   }
 ).addTo(map);
+
+console.log(L);
+
+const userLocationSuccess = (position) => {
+console.log(position);
+}
+
+const userLocationFailed = () => {
+    prompt("We can't get your location, application will not work propelly. 😫")
+}
+
+const userLocation = navigator.geolocation.getCurrentPosition(
+  userLocationSuccess,
+  userLocationFailed
+);
+
+
