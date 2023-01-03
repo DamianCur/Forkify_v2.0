@@ -17,8 +17,9 @@ const geolocationSuccess = position => {
   const { latitude } = position.coords;
   const { longitude } = position.coords;
   
+  const coords = [latitude,longitude]
 
-  const map = L.map('map').setView([latitude, longitude], 13);
+  const map = L.map('map').setView(coords, 13);
 
 
   L.tileLayer(`https://tile.openstreetmap.org/{z}/{x}/{y}.png`, {
@@ -26,7 +27,7 @@ const geolocationSuccess = position => {
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(map);
 
-  L.marker([51.5, -0.09])
+  L.marker(coords)
     .addTo(map)
     .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
     .openPopup();
@@ -35,7 +36,6 @@ const geolocationSuccess = position => {
 const geolocationFailure = () => {
   alert('Could not get your position! 🤯 App will not work propelly. 😨');
 };
-
 
 if (navigator.geolocation) {
   navigator.geolocation.getCurrentPosition(
