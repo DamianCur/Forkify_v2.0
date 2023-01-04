@@ -27,10 +27,17 @@ const geolocationSuccess = position => {
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(map);
 
-  L.marker(coords)
-    .addTo(map)
-    .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
-    .openPopup();
+  
+
+    map.on('click', (mapEvent) => {
+      console.log(mapEvent);
+      const {lat, lng} = mapEvent.latlng
+
+      L.marker([lat, lng])
+        .addTo(map)
+        .bindPopup('Workout')
+        .openPopup();
+    })
 };
 
 const geolocationFailure = () => {
