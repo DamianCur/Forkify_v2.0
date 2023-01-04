@@ -22,9 +22,9 @@ const geolocationSuccess = position => {
   const map = L.map('map').setView(coords, 13);
 
 
-  L.tileLayer(`https://tile.openstreetmap.org/{z}/{x}/{y}.png`, {
+  L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
     attribution:
-      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
   }).addTo(map);
 
   
@@ -35,7 +35,16 @@ const geolocationSuccess = position => {
 
       L.marker([lat, lng])
         .addTo(map)
-        .bindPopup('Workout')
+        .bindPopup(
+          L.popup({
+            maxwidth: 250,
+            minwidth: 100,
+            autoClose: false,
+            closeOnClick: false,
+            className: 'running-popup',
+          })
+        )
+        .setPopupContent('Workout')
         .openPopup();
     })
 };
