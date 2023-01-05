@@ -12,7 +12,7 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: inherit;
+  box-sizing: border-box;
 }
 
 html {
@@ -73,13 +73,15 @@ a:visited {
   margin-bottom: 1.75rem;
   cursor: pointer;
 
-  display: grid;
+  /* display: grid; */
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 0.75rem 1.5rem;
 }
+
 .workout--running {
   border-left: 5px solid var(--color-brand--2);
 }
+
 .workout--cycling {
   border-left: 5px solid var(--color-brand--1);
 }
@@ -118,13 +120,11 @@ a:visited {
   border-radius: 5px;
   padding: 1.5rem 2.75rem;
   margin-bottom: 1.75rem;
-
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.5rem 2.5rem;
+  justify-content: space-between;
+  display: flex;
+  flex-wrap: wrap;
 
   /* Match height and activity boxes */
-  height: 9.25rem;
   transition: all 0.5s, transform 1ms;
 }
 
@@ -138,7 +138,12 @@ a:visited {
 
 .form__row {
   display: flex;
-  align-items: center;
+}
+
+.test {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
 }
 
 .form__row--hidden {
@@ -146,20 +151,24 @@ a:visited {
 }
 
 .form__label {
-  flex: 0 0 50%;
   font-size: 1.5rem;
   font-weight: 600;
+  padding: 10px;
+  width: 100px;
 }
 
 .form__input {
-  width: 100%;
-  padding: 0.3rem 1.1rem;
+  display: table;
+  padding: 0 5px;
   font-family: inherit;
   font-size: 1.4rem;
   border: none;
   border-radius: 3px;
   background-color: var(--color-light--3);
   transition: all 0.2s;
+  margin: auto;
+  height: 25px;
+  width: 200px
 }
 
 .form__input:focus {
@@ -168,7 +177,8 @@ a:visited {
 }
 
 .form__btn {
-  display: none;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .twitter-link:link,
@@ -208,6 +218,7 @@ a:visited {
 .running-popup .leaflet-popup-content-wrapper {
   border-left: 5px solid var(--color-brand--2);
 }
+
 .cycling-popup .leaflet-popup-content-wrapper {
   border-left: 5px solid var(--color-brand--1);
 }
