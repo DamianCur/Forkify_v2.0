@@ -42,7 +42,7 @@ a:visited {
 
 /* SIDEBAR */
 .sidebar {
-  flex-basis: 50rem;
+  width: 40vw;
   background-color: var(--color-dark--1);
   padding: 3rem 5rem 4rem 5rem;
   display: flex;
@@ -168,7 +168,7 @@ a:visited {
   transition: all 0.2s;
   margin: auto;
   height: 25px;
-  width: 200px
+  width: 7vw;
 }
 
 .form__input:focus {
