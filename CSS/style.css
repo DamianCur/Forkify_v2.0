@@ -50,18 +50,25 @@ a:visited {
 }
 
 .container__instruction {
+  display: flex;
+  padding: 20px 50px;
+  flex-direction: column;
   font-family: 'Manrope', sans-serif;
+  border: 1px solid white;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  
 }
 
 .container__instruction__header {
   text-align: center;
   font-size: 2rem;
-  margin: 70px 0 20px;
-
+  margin-bottom: 20px;
 }
 
 .container__instruction__paragraph {
-  font-size: 1.2rem;
+  font-size: 1.6rem;
 }
 
 .logo {
