@@ -73,7 +73,13 @@ formButton.addEventListener('click', (e) => {
   //display marker
 e.preventDefault()
 
-  console.log(map, mapEvent);
+  //clear input fields
+const inputArray = [inputCadence, inputDistance, inputDuration, inputElevation]
+
+inputArray.forEach(el => {
+  el.value = ''
+})
+  
  
   const { lat, lng } = mapEvent.latlng;
   L.marker([lat, lng])
@@ -90,3 +96,8 @@ e.preventDefault()
     .setPopupContent('Workout')
     .openPopup();
 });
+
+inputType.addEventListener('change', () => {
+  inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
+  inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
+})
