@@ -62,42 +62,24 @@ const geolocationFailure = () => {
   alert('Could not get your position! 🤯 App will not work propelly. 😨');
 };
 
-if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition(
-    geolocationSuccess,
-    geolocationFailure
-  );
-}
 
-formButton.addEventListener('click', (e) => {
-  //display marker
-e.preventDefault()
 
-  //clear input fields
-const inputArray = [inputCadence, inputDistance, inputDuration, inputElevation]
 
-inputArray.forEach(el => {
-  el.value = ''
-})
-  
- 
-  const { lat, lng } = mapEvent.latlng;
-  L.marker([lat, lng])
-    .addTo(map)
-    .bindPopup(
-      L.popup({
-        maxwidth: 250,
-        minwidth: 100,
-        autoClose: false,
-        closeOnClick: false,
-        className: 'running-popup',
-      })
-    )
-    .setPopupContent('Workout')
-    .openPopup();
-});
 
-inputType.addEventListener('change', () => {
-  inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
-  inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
-})
+// console.log(mapEvent);
+      // const {lat, lng} = mapEvent.latlng
+
+      // L.marker([lat, lng])
+      //   .addTo(map)
+      //   .bindPopup(
+      //     L.popup({
+      //       maxwidth: 250,
+      //       minwidth: 100,
+      //       autoClose: false,
+      //       closeOnClick: false,
+      //       className: 'running-popup',
+      //     })
+      //   )
+      //   .setPopupContent('Workout')
+      //   .openPopup();
+
