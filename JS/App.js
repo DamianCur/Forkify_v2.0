@@ -1,7 +1,4 @@
-import { Workout } from "./Workout.js";
-
-
-
+import { Workout, Running, Cycling } from "./Workout.js";
 
 const form = document.querySelector('.form');
 const containerWorkouts = document.querySelector('.workouts');
@@ -36,7 +33,7 @@ class App {
     const { longitude } = position.coords;
 
     const coords = [latitude, longitude];
-    console.log(this);
+
     this.#map = L.map('map').setView(coords, 13);
 
     L.tileLayer(
@@ -89,4 +86,9 @@ class App {
   }
 }
 
-const app = new App();
+const app = new App()
+
+const run1 = new Running([39, -12], 5.2, 24, 178);
+const cycling1 = new Cycling([39, -12], 5.2, 24, 178);
+
+console.log(run1, cycling1);
