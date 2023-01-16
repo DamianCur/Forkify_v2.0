@@ -1,7 +1,5 @@
 'use strict';
 
-import { v4 as uuidv4 } from 'https://cdn.skypack.dev/uuid';
-
 // prettier-ignore
 // const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 

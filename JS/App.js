@@ -1,3 +1,8 @@
+import { Workout } from "./Workout.js";
+
+
+
+
 const form = document.querySelector('.form');
 const containerWorkouts = document.querySelector('.workouts');
 const inputType = document.querySelector('.form__input--type');
@@ -15,7 +20,7 @@ class App {
   constructor() {
     this._getPosition();
     form.addEventListener('submit', this._newWorkout.bind(this));
-    inputType.addEventListener('change', this._toogleElevationField)
+    inputType.addEventListener('change', this._toogleElevationField);
   }
 
   _getPosition() {
@@ -42,13 +47,10 @@ class App {
       }
     ).addTo(this.#map);
 
-    this.#map.on('click', this._showForm.bind(this)) 
-      
-    
+    this.#map.on('click', this._showForm.bind(this));
   }
 
   _showForm(mapE) {
-
     this.#mapEvent = mapE;
     form.classList.remove('hidden');
     containerInstruction.classList.add('hidden');
@@ -56,45 +58,35 @@ class App {
   }
 
   _toogleElevationField() {
-
-      inputElevation
-        .closest('.form__row')
-        .classList.toggle('form__row--hidden');
-      inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
-    
+    inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
+    inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
   }
 
   _newWorkout(e) {
-    
-    
-    
     e.preventDefault();
-    
+
     const { lat, lng } = this.#mapEvent.latlng;
     L.marker([lat, lng])
-    .addTo(this.#map)
-    .bindPopup(
-      L.popup({
-        maxwidth: 250,
-        minwidth: 100,
-        autoClose: false,
-        closeOnClick: false,
-        className: 'running-popup',
-      })
+      .addTo(this.#map)
+      .bindPopup(
+        L.popup({
+          maxwidth: 250,
+          minwidth: 100,
+          autoClose: false,
+          closeOnClick: false,
+          className: 'running-popup',
+        })
       )
       .setPopupContent('Workout')
       .openPopup();
-      
-      
-      // prettier-ignore
-      const inputArray = [inputCadence, inputDistance, inputDuration, inputElevation];
 
-      inputArray.forEach(el => {
-        el.value = '';
-      });
+    // prettier-ignore
+    const inputArray = [inputCadence, inputDistance, inputDuration, inputElevation];
+
+    inputArray.forEach(el => {
+      el.value = '';
+    });
   }
-
-
 }
 
 const app = new App();
