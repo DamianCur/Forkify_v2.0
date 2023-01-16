@@ -1,4 +1,5 @@
-import { Workout, Running, Cycling } from "./Workout.js";
+import { Workout, Running, Cycling } from './Workout.js';
+import { validInputs, isPositiveNumber } from './utility.js';
 
 const form = document.querySelector('.form');
 const containerWorkouts = document.querySelector('.workouts');
@@ -61,6 +62,34 @@ class App {
   _newWorkout(e) {
     e.preventDefault();
 
+    const type = inputType.value;
+    const distance = +inputDistance.value;
+    const duration = +inputDuration.value;
+
+    if (type === 'cycling') {
+      const elevation = +inputElevation.value;
+      if (
+        !validInputs(distance, duration, elevation) ||
+        !isPositiveNumber(distance, duration)
+      ) {
+        return alert('Inputs have to be positive numbers!');
+      }
+    }
+
+
+    
+
+    if (type === 'running') {
+      const cadence = +inputCadence.value;
+
+      if (
+        !validInputs(distance, duration, cadence) ||
+        !isPositiveNumber(distance, duration, cadence)
+      ) {
+        return alert('Inputs have to be positive numbers!');
+      }
+    }
+
     const { lat, lng } = this.#mapEvent.latlng;
     L.marker([lat, lng])
       .addTo(this.#map)
@@ -85,7 +114,7 @@ class App {
   }
 }
 
-const app = new App()
+const app = new App();
 
 const run1 = new Running([39, -12], 5.2, 24, 178);
 const cycling1 = new Cycling([39, -12], 5.2, 24, 178);
