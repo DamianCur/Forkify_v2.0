@@ -66,6 +66,8 @@ class App {
     const distance = +inputDistance.value;
     const duration = +inputDuration.value;
 
+    console.log(type, distance, duration);
+
     if (type === 'cycling') {
       const elevation = +inputElevation.value;
       if (
@@ -81,6 +83,7 @@ class App {
 
     if (type === 'running') {
       const cadence = +inputCadence.value;
+      console.log(cadence);
 
       if (
         !validInputs(distance, duration, cadence) ||
@@ -119,4 +122,3 @@ const app = new App();
 const run1 = new Running([39, -12], 5.2, 24, 178);
 const cycling1 = new Cycling([39, -12], 5.2, 24, 178);
 
-console.log(run1, cycling1);
