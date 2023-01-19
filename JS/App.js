@@ -1,5 +1,5 @@
 import { Workout, Running, Cycling } from './Workout.js';
-import { validInputs, isPositiveNumber } from './utility.js';
+import { validateInputs, isPositiveNumber } from './utility.js';
 
 const form = document.querySelector('.form');
 const containerWorkouts = document.querySelector('.workouts');
@@ -13,6 +13,7 @@ const containerInstruction = document.querySelector('.container__instruction');
 class App {
   #map;
   #mapEvent;
+  #workouts = []
 
   constructor() {
     this._getPosition();
@@ -65,35 +66,43 @@ class App {
     const type = inputType.value;
     const distance = +inputDistance.value;
     const duration = +inputDuration.value;
-
-    console.log(type, distance, duration);
+    const { lat, lng } = this.#mapEvent.latlng;
+    let workout;
 
     if (type === 'cycling') {
       const elevation = +inputElevation.value;
       if (
-        !validInputs(distance, duration, elevation) ||
+        !validateInputs(distance, duration, elevation) ||
         !isPositiveNumber(distance, duration)
       ) {
         return alert('Inputs have to be positive numbers!');
       }
+
+      workout = new Cycling([lat, lng], distance, duration, elevation);
     }
+    
+    
+    
+    
+    
+    if (type === 'running') {
+      const cadence = +inputCadence.value;
+      
+      if (
+        !validateInputs(distance, duration, cadence) ||
+        !isPositiveNumber(distance, duration, cadence)
+        ) {
+          return alert('Inputs have to be positive numbers!');
+        }
+        
+        workout = new Running([lat, lng], distance, duration, cadence);
+      }
+      
+      console.log(workout);
+    this.#workouts.push(workout)
 
 
     
-
-    if (type === 'running') {
-      const cadence = +inputCadence.value;
-      console.log(cadence);
-
-      if (
-        !validInputs(distance, duration, cadence) ||
-        !isPositiveNumber(distance, duration, cadence)
-      ) {
-        return alert('Inputs have to be positive numbers!');
-      }
-    }
-
-    const { lat, lng } = this.#mapEvent.latlng;
     L.marker([lat, lng])
       .addTo(this.#map)
       .bindPopup(
