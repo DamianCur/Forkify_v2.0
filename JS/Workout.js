@@ -6,6 +6,18 @@ class Workout {
     this.coords = coords;
     this.distance = distance;
     this.duration = duration;
+    
+  }
+
+  _setDescription() {
+    //prettier-ignore
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+
+
+
+    this.description = `${this.type[0].toUpperCase()}${this.type.slice(1)} on ${this.date.getDate()} ${months[this.date.getMonth()]}`;
+
+ 
   }
 }
 
@@ -15,6 +27,7 @@ class Running extends Workout {
     super(coords, distance, duration);
     this.cadence = cadence;
     this.calcPace();
+    this._setDescription();
   }
 
   calcPace() {
@@ -29,6 +42,7 @@ class Cycling extends Workout {
     super(coords, distance, duration);
     this.elevationGain = elevationGain;
     this.calcSpeed();
+    this._setDescription();
   }
 
   calcSpeed() {
