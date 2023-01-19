@@ -4,4 +4,4 @@ const isPositiveNumber = (...inputs) => inputs.every(inp => inp > 0)
 
 
 
-export { validateInputs, isPositiveNumber };
+export { validateInputs, isPositiveNumber};

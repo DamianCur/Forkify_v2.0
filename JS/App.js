@@ -13,7 +13,7 @@ const containerInstruction = document.querySelector('.container__instruction');
 class App {
   #map;
   #mapEvent;
-  #workouts = []
+  #workouts = [];
 
   constructor() {
     this._getPosition();
@@ -68,6 +68,7 @@ class App {
     const duration = +inputDuration.value;
     const { lat, lng } = this.#mapEvent.latlng;
     let workout;
+    console.log(lat, lng);
 
     if (type === 'cycling') {
       const elevation = +inputElevation.value;
@@ -80,42 +81,23 @@ class App {
 
       workout = new Cycling([lat, lng], distance, duration, elevation);
     }
-    
-    
-    
-    
-    
+
     if (type === 'running') {
       const cadence = +inputCadence.value;
-      
+
       if (
         !validateInputs(distance, duration, cadence) ||
         !isPositiveNumber(distance, duration, cadence)
-        ) {
-          return alert('Inputs have to be positive numbers!');
-        }
-        
-        workout = new Running([lat, lng], distance, duration, cadence);
+      ) {
+        return alert('Inputs have to be positive numbers!');
       }
-      
-      console.log(workout);
-    this.#workouts.push(workout)
 
-
-    
-    L.marker([lat, lng])
-      .addTo(this.#map)
-      .bindPopup(
-        L.popup({
-          maxwidth: 250,
-          minwidth: 100,
-          autoClose: false,
-          closeOnClick: false,
-          className: 'running-popup',
-        })
-      )
-      .setPopupContent('Workout')
-      .openPopup();
+      workout = new Running([lat, lng], distance, duration, cadence);
+      // this.renderWorkoutMarker(workout);
+    }
+    this.renderWorkoutMarker(workout);
+    console.log(workout);
+    this.#workouts.push(workout);
 
     // prettier-ignore
     const inputArray = [inputCadence, inputDistance, inputDuration, inputElevation];
@@ -124,10 +106,25 @@ class App {
       el.value = '';
     });
   }
+
+  renderWorkoutMarker = workout => {
+    L.marker(workout.coords)
+      .addTo(this.map)
+      .bindPopup(
+        L.popup({
+          maxwidth: 250,
+          minwidth: 100,
+          autoClose: false,
+          closeOnClick: false,
+          className: `${workout.type}-popup`,
+        })
+      )
+      .setPopupContent('Workout')
+      .openPopup();
+  };
 }
 
 const app = new App();
 
 const run1 = new Running([39, -12], 5.2, 24, 178);
 const cycling1 = new Cycling([39, -12], 5.2, 24, 178);
-
