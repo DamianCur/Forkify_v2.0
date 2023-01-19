@@ -95,8 +95,8 @@ class App {
       workout = new Running([lat, lng], distance, duration, cadence);
       // this.renderWorkoutMarker(workout);
     }
-    this.renderWorkoutMarker(workout);
     console.log(workout);
+    this.renderWorkoutMarker(workout);
     this.#workouts.push(workout);
 
     // prettier-ignore
@@ -107,9 +107,9 @@ class App {
     });
   }
 
-  renderWorkoutMarker = workout => {
+  renderWorkoutMarker = (workout) => {
     L.marker(workout.coords)
-      .addTo(this.map)
+      .addTo(this.#map)
       .bindPopup(
         L.popup({
           maxwidth: 250,
@@ -121,6 +121,9 @@ class App {
       )
       .setPopupContent('Workout')
       .openPopup();
+
+
+   
   };
 }
 
