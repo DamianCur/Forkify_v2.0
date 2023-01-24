@@ -55,6 +55,20 @@ class App {
     inputDistance.focus();
   }
 
+  _hideForm() {
+    // prettier-ignore
+    const inputArray = [inputCadence, inputDistance, inputDuration, inputElevation];
+
+    inputArray.forEach(el => {
+      el.value = '';
+    });
+    form.style.display = 'none'
+    form.classList.add('hidden');
+    setTimeout(()=> {
+      form.style.display = 'grid'
+    },1000)
+  }
+
   _toogleElevationField() {
     inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
     inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
@@ -101,12 +115,9 @@ class App {
     console.log(workout);
     this.#workouts.push(workout);
 
-    // prettier-ignore
-    const inputArray = [inputCadence, inputDistance, inputDuration, inputElevation];
+    
 
-    inputArray.forEach(el => {
-      el.value = '';
-    });
+    this._hideForm()
   }
 
   _renderWorkoutMarker = workout => {
@@ -121,7 +132,7 @@ class App {
           className: `${workout.type}-popup`,
         })
       )
-      .setPopupContent('Workout')
+      .setPopupContent(`${workout.type === 'running' ? '🏃‍♂️' : '🚴‍♂️'} ${workout.description}`)
       .openPopup();
   };
 
