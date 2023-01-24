@@ -12,6 +12,7 @@ const containerInstruction = document.querySelector('.container__instruction');
 
 class App {
   #map;
+  #mapZoomLevel = 13;
   #mapEvent;
   #workouts = [];
 
@@ -19,6 +20,7 @@ class App {
     this._getPosition();
     form.addEventListener('submit', this._newWorkout.bind(this));
     inputType.addEventListener('change', this._toogleElevationField);
+    containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
   }
 
   _getPosition() {
@@ -35,7 +37,7 @@ class App {
 
     const coords = [latitude, longitude];
 
-    this.#map = L.map('map').setView(coords, 13);
+    this.#map = L.map('map').setView(coords, this.#mapZoomLevel);
 
     L.tileLayer(
       'https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png',
@@ -62,11 +64,11 @@ class App {
     inputArray.forEach(el => {
       el.value = '';
     });
-    form.style.display = 'none'
+    form.style.display = 'none';
     form.classList.add('hidden');
-    setTimeout(()=> {
-      form.style.display = 'grid'
-    },1000)
+    setTimeout(() => {
+      form.style.display = 'grid';
+    }, 1000);
   }
 
   _toogleElevationField() {
@@ -82,7 +84,6 @@ class App {
     const duration = +inputDuration.value;
     const { lat, lng } = this.#mapEvent.latlng;
     let workout;
-    console.log(lat, lng);
 
     if (type === 'cycling') {
       const elevation = +inputElevation.value;
@@ -112,12 +113,9 @@ class App {
 
     this._renderWorkoutMarker(workout);
     this._renderWorkout(workout);
-    console.log(workout);
     this.#workouts.push(workout);
 
-    
-
-    this._hideForm()
+    this._hideForm();
   }
 
   _renderWorkoutMarker = workout => {
@@ -132,12 +130,13 @@ class App {
           className: `${workout.type}-popup`,
         })
       )
-      .setPopupContent(`${workout.type === 'running' ? '🏃‍♂️' : '🚴‍♂️'} ${workout.description}`)
+      .setPopupContent(
+        `${workout.type === 'running' ? '🏃‍♂️' : '🚴‍♂️'} ${workout.description}`
+      )
       .openPopup();
   };
 
   _renderWorkout(workout) {
-    console.log(workout.type);
     let html = `
          <li class="workout workout--${workout.type}" data-id="${workout.id}">
           <h2 class="workout__title">${workout.description}</h2>
@@ -169,11 +168,10 @@ class App {
             <span class="workout__unit">spm</span>
           </div>
         </li>`;
-
     }
 
-        if (workout.type === 'cycling') {
-          html += `
+    if (workout.type === 'cycling') {
+      html += `
           
           <div class="workout__details">
             <span class="workout__icon">⚡️</span>
@@ -186,9 +184,26 @@ class App {
             <span class="workout__unit">m</span>
           </div>
          </li>`;
-        }
-    
-        form.insertAdjacentHTML('afterend', html)
+    }
+
+    form.insertAdjacentHTML('afterend', html);
+  }
+
+  _moveToPopup(e) {
+    const workoutEl = e.target.closest('.workout');
+
+    if (!workoutEl) return;
+
+    const workout = this.#workouts.find(
+      work => work.id === workoutEl.dataset.id
+    );
+
+    this.#map.setView(workout.coords, this.#mapZoomLevel, {
+      animate: true,
+      pan: {
+        duration: 1,
+      },
+    });
   }
 }
 
