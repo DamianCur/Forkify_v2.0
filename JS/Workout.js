@@ -51,4 +51,4 @@ class Cycling extends Workout {
   }
 }
 
-export { Workout, Running, Cycling };
+export {Running, Cycling };

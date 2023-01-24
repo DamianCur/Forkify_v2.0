@@ -1,4 +1,4 @@
-import { Workout, Running, Cycling } from './Workout.js';
+import { Running, Cycling } from './Workout.js';
 import { validateInputs, isPositiveNumber } from './utility.js';
 
 const form = document.querySelector('.form');
@@ -98,7 +98,7 @@ class App {
         !validateInputs(distance, duration, elevation) ||
         !isPositiveNumber(distance, duration)
       ) {
-        return alert('Inputs have to be positive numbers!');
+        return alert('Inputs have to be positive and correct numbers!');
       }
 
       workout = new Cycling([lat, lng], distance, duration, elevation);
@@ -111,11 +111,10 @@ class App {
         !validateInputs(distance, duration, cadence) ||
         !isPositiveNumber(distance, duration, cadence)
       ) {
-        return alert('Inputs have to be positive numbers!');
+        return alert('Inputs have to be positive and correct numbers!');
       }
 
       workout = new Running([lat, lng], distance, duration, cadence);
-      // this.renderWorkoutMarker(workout);
     }
 
     this._renderWorkoutMarker(workout);
@@ -220,17 +219,16 @@ class App {
   }
 
   _getLocalStorage() {
-   const data = JSON.parse(localStorage.getItem('workouts'))
-   console.log(data);
+    const data = JSON.parse(localStorage.getItem('workouts'));
+    console.log(data);
 
-   if(!data) return
+    if (!data) return;
 
-   this.#workouts = data
+    this.#workouts = data;
 
-   this.#workouts.forEach(work => {
-    this._renderWorkout(work)
-    
-   })
+    this.#workouts.forEach(work => {
+      this._renderWorkout(work);
+    });
   }
 }
 
